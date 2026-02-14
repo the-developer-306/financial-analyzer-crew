@@ -51,12 +51,13 @@ This system uses CrewAI to orchestrate multiple AI agents that analyze financial
 
 #### main.py
 
-| Bug              | Issue                                                                | Fix                                    |
-| ---------------- | -------------------------------------------------------------------- | -------------------------------------- |
-| Name collision   | Endpoint function `analyze_financial_document` shadows imported task | Renamed endpoint to `analyze_document` |
-| Unused parameter | `file_path` passed to `run_crew` but never used                      | Added `file_path` to kickoff inputs    |
-| Unused import    | `import asyncio` never used                                          | Removed unused import                  |
-| Spacing issue    | `if query==""` missing spaces                                        | Fixed to `if query == ""`              |
+| Bug                   | Issue                                                                | Fix                                    |
+| ----------------      | -------------------------------------------------------------------- | -------------------------------------- |
+| Name collision        | Endpoint function `analyze_financial_document` shadows imported task | Renamed endpoint to `analyze_document` |
+| Unused parameter      | `file_path` passed to `run_crew` but never used                      | Added `file_path` to kickoff inputs    |
+| Unused import         | `import asyncio` never used                                          | Removed unused import                  |
+| Spacing issue         | `if query==""` missing spaces                                        | Fixed to `if query == ""`              |
+| Host address issue    | `host =` "0.0.0.0"                                                    | Fixed to `host = "127.0.0.1"`          |
 
 #### task.py
 
