@@ -300,10 +300,10 @@ The API server starts at `http://localhost:8000`
 
 **Features Available**:
 
-- ✅ Synchronous document analysis (`/analyze`)
-- ✅ Database storage of results
-- ✅ History and statistics endpoints
-- ❌ Async processing disabled
+- Synchronous document analysis (`/analyze`)
+- Database storage of results
+- History and statistics endpoints
+- Async processing disabled
 
 #### Advanced Mode (With Queue Worker)
 
@@ -329,13 +329,13 @@ python main.py
 
 **Features Available**:
 
-- ✅ Synchronous document analysis (`/analyze`)
-- ✅ Asynchronous document analysis (`/analyze/async`)
-- ✅ Job status tracking (`/status/{job_id}`)
-- ✅ Result retrieval (`/result/{job_id}`)
-- ✅ Database storage of results
-- ✅ History and statistics endpoints
-- ✅ Concurrent request handling
+- Synchronous document analysis (`/analyze`)
+- Asynchronous document analysis (`/analyze/async`)
+- Job status tracking (`/status/{job_id}`)
+- Result retrieval (`/result/{job_id}`)
+- Database storage of results
+- History and statistics endpoints
+- Concurrent request handling
 
 ---
 
@@ -868,13 +868,3 @@ stats = get_stats()
 - Investor Presentations
 
 ---
-
-## License
-
-This project is for educational purposes.
-
----
-
-## Disclaimer
-
-This tool provides AI-generated financial analysis for informational purposes only. It should not be considered as professional financial advice. Always consult with qualified financial advisors before making investment decisions.
