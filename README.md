@@ -51,13 +51,13 @@ This system uses CrewAI to orchestrate multiple AI agents that analyze financial
 
 #### main.py
 
-| Bug                   | Issue                                                                | Fix                                    |
-| ----------------      | -------------------------------------------------------------------- | -------------------------------------- |
-| Name collision        | Endpoint function `analyze_financial_document` shadows imported task | Renamed endpoint to `analyze_document` |
-| Unused parameter      | `file_path` passed to `run_crew` but never used                      | Added `file_path` to kickoff inputs    |
-| Unused import         | `import asyncio` never used                                          | Removed unused import                  |
-| Spacing issue         | `if query==""` missing spaces                                        | Fixed to `if query == ""`              |
-| Host address issue    | `host =` "0.0.0.0"                                                    | Fixed to `host = "127.0.0.1"`          |
+| Bug                | Issue                                                                | Fix                                    |
+| ------------------ | -------------------------------------------------------------------- | -------------------------------------- |
+| Name collision     | Endpoint function `analyze_financial_document` shadows imported task | Renamed endpoint to `analyze_document` |
+| Unused parameter   | `file_path` passed to `run_crew` but never used                      | Added `file_path` to kickoff inputs    |
+| Unused import      | `import asyncio` never used                                          | Removed unused import                  |
+| Spacing issue      | `if query==""` missing spaces                                        | Fixed to `if query == ""`              |
+| Host address issue | `host =` "0.0.0.0"                                                   | Fixed to `host = "127.0.0.1"`          |
 
 #### task.py
 
@@ -159,7 +159,7 @@ This system uses CrewAI to orchestrate multiple AI agents that analyze financial
 ### Prerequisites
 
 - Python 3.10+
-- OpenAI API key (or other supported LLM provider)
+- DeepSeek API key (see [Why DeepSeek?](#why-deepseek) section below)
 
 ### Installation
 
@@ -187,7 +187,21 @@ pip install -r requirements.txt
 
 4. **Configure environment variables:**
 
-   - Add actual API keys to the `.env` file in the project root.
+   Create a `.env` file in the project root with the following:
+
+   ```env
+   # DeepSeek API Configuration
+   DEEPSEEK_API_KEY=your_deepseek_api_key_here
+   DEEPSEEK_MODEL=deepseek-chat
+   DEEPSEEK_BASE_URL=https://api.deepseek.com
+
+   # Embeddings Configuration (Optional)
+   EMBEDDINGS_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+   # Optional: Search Tool API Key
+   SERPER_API_KEY=your_serper_api_key_here
+   ```
+
 
 5. **Add a sample financial document:**
 
@@ -282,6 +296,35 @@ print(response.json())
   "detail": "Error processing financial document: [error message]"
 }
 ```
+
+---
+
+## Why DeepSeek?
+
+### LLM Provider Change
+
+This project has been **intentionally configured to use DeepSeek** as the LLM provider instead of OpenAI for the following reasons:
+
+1. **Cost-Effective**: DeepSeek offers competitive pricing for API calls, making it more economical for financial document analysis at scale.
+2. **High Performance**: DeepSeek's models provide excellent reasoning capabilities suitable for complex financial analysis tasks.
+3. **OpenAI-Compatible API**: The API structure is similar to OpenAI's, making it easy to integrate with CrewAI.
+
+### Embeddings Model Change
+
+The project uses **Sentence Transformers** from HuggingFace instead of OpenAI embeddings:
+
+- **Model**: `sentence-transformers/all-MiniLM-L6-v2` (default)
+- **Benefits**:
+  - **Free and Open Source**: No API costs for embeddings
+  - **Local Processing**: Embeddings are generated locally without external API calls
+  - **Privacy**: Document content stays on your machine during embedding generation
+  - **Fast**: Efficient model optimized for semantic similarity tasks
+- **Integration**: Seamlessly integrated with ChromaDB, which CrewAI uses internally for memory and embeddings
+
+### Configuration Location
+
+- **LLM Configuration**: See [agents.py](agents.py) - Lines 10-14
+- **Embeddings Configuration**: See [embeddings_config.py](embeddings_config.py)
 
 ---
 
